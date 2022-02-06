@@ -1,0 +1,25 @@
+#docker file compose
+
+version: '3'
+
+services:
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: my_secret_pw_shh
+      MYSQL_DATABASE: development
+      MYSQL_USER: user1
+      MYSQL_PASSWORD: Pifias000
+    ports:
+      - "9906:3306"
+  web:
+    image: php:7.4-apache
+    container_name: phpdev
+    depends_on:
+      - db
+    volumes:
+      - ./src/:/var/www/html/
+    ports:
+      - "8100:80"
+    stdin_open: true
+    tty: true
